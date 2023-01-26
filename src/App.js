@@ -17,6 +17,7 @@ class App extends Component {
       myChart4: null,
       myChart5: null,
       myChart6: null,
+      // 各地区 多一点四川省的城市
       topdata:{data: [
         {
           name: '周口',
@@ -48,6 +49,9 @@ class App extends Component {
         }
       ],
       carousel: 'page'},
+
+    // 左下角的列表，用于展示具体的数据
+    // 地区 地域类型 传感器编号 传感器数据 数据是否正常
     tabledata:{
       header: ['列1', '列2', '列3'],
       data: [
@@ -86,6 +90,7 @@ class App extends Component {
       that.state.myChart6.resize()
     }
   }
+  // 右侧表格
   initalECharts5() {
     this.setState(
       { myChart6: echarts.init(document.getElementById('mainMap3')) },
@@ -93,7 +98,7 @@ class App extends Component {
         this.state.myChart6.setOption({
           title: {
             show: true,
-            text: '近6个月观众活跃趋势',
+            text: '近期数据同步率',
             x: 'center',
             textStyle: {
               //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
@@ -130,7 +135,7 @@ class App extends Component {
           },
           xAxis: {
             type: 'category',
-            data: ['1月', '2月', '3月', '4月', '五月', '6月'],
+            data: ['8月', '9月', '10月', '11月', '12月', '1月'],
             splitLine: {
               show: true,
               lineStyle: {
@@ -162,11 +167,13 @@ class App extends Component {
               }
             }
           },
+          // 理论上当月需要能够同步80%，上月要同步90%，上上月就要完全同步
+          // 实际上肯定要低一点
           series: [
             {
-              name: '观看人数、次数（个）',
+              name: '理论同步率',
               type: 'bar',
-              data: [140, 170, 90,180, 90, 90],
+              data: [100, 100, 100, 100, 90, 80],
               itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                   { offset: 0, color: '#9408fc' },
@@ -175,9 +182,9 @@ class App extends Component {
               }
             },
             {
-              name: '场均观看数（场）',
+              name: '实际同步率',
               type: 'bar',
-              data: [120, 130, 80, 130, 120, 120],
+              data: [100, 100, 100, 90, 65, 30],
               itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                   { offset: 0, color: '#13b985' },
@@ -190,6 +197,7 @@ class App extends Component {
       }
     )
   }
+  // 左侧表格
   initalECharts4() {
     this.setState(
       { myChart5: echarts.init(document.getElementById('mainMap2')) },
@@ -197,7 +205,7 @@ class App extends Component {
         this.state.myChart5.setOption({
           title: {
             show: true,
-            text: '近6个月主播活跃趋势',
+            text: '近期同步数据量',
             x: 'center',
             textStyle: {
               //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
@@ -214,7 +222,7 @@ class App extends Component {
             }
           },
           legend: {
-            data: ['开播主播数（个）', '开播场次数（场）'],
+            data: ['开播主播数（）', '开播场次数（场）'],
             textStyle: {
               fontSize: 12,
               color: '#ffffff'
@@ -403,94 +411,12 @@ class App extends Component {
       }
     )
   }
-  initalECharts2() {
-    this.setState(
-      { myChart3: echarts.init(document.getElementById('cityMap')) },
-      () => {
-        this.state.myChart3.setOption({
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 1,
-            y2: 0,
-            colorStops: [
-              {
-                offset: 0,
-                color: '#d000d0' // 0% 处的颜色
-              },
-              {
-                offset: 1,
-                color: '#7006d9' // 100% 处的颜色
-              }
-            ],
-            globalCoord: false
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              // 坐标轴指示器，坐标轴触发有效
-              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-            }
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: [
-            {
-              type: 'value',
-              splitLine: {
-                show: true,
-                lineStyle: {
-                  color: ['#07234d']
-                }
-              },
-              axisLabel: {
-                show: true,
-                textStyle: {
-                  color: '#c3dbff', //更改坐标轴文字颜色
-                  fontSize: 12 //更改坐标轴文字大小
-                }
-              }
-            }
-          ],
-          yAxis: [
-            {
-              type: 'category',
-              data: ['科技', '母婴', '男士', '美妆', '珠宝', '宠物'],
-              axisTick: {
-                alignWithLabel: true
-              },
-              axisLabel: {
-                show: true,
-                textStyle: {
-                  color: '#c3dbff', //更改坐标轴文字颜色
-                  fontSize: 12 //更改坐标轴文字大小
-                }
-              }
-            }
-          ],
-          series: [
-            {
-              name: '直接访问',
-              type: 'bar',
-              barWidth: '60%',
-              data: [10, 52, 200, 334, 390, 330]
-            }
-          ]
-        })
-      }
-    )
-  }
   initalECharts1() {
     this.setState(
-      { myChart2: echarts.init(document.getElementById('provinceMap')) },
+      { myChart2: echarts.init(document.getElementById('device_overview')) },
       () => {
         this.state.myChart2.setOption({
-          color: ['#9702fe', '#ff893b', '#37cbff', '#d90051', '#b2e269'],
+          color: ['#9702fe', '#ff893b', '#37cbff'],
           tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -499,7 +425,65 @@ class App extends Component {
             orient: 'vertical',
             top: 30,
             right: '20%',
-            data: ['美妆', '百度', '教育', '理财', '母婴'],
+            data: ['正常设备', '故障设备', '离线设备'],
+            textStyle: {
+              fontSize: 12,
+              color: '#ffffff'
+            },
+            icon: 'circle',
+            itemWidth: 10, // 设置宽度
+
+            itemHeight: 10, // 设置高度
+
+            itemGap: 10 // 设置间距分
+          },
+          series: [
+            {
+              name: '访问来源',
+              type: 'pie',
+              radius: ['50%', '70%'],
+              center: ['35%', '50%'],
+              avoidLabelOverlap: false,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: [
+                { value: 335, name: '正常设备' },
+                { value: 50, name: '故障设备' },
+                { value: 134, name: '离线设备' }
+              ]
+            }
+          ]
+        })
+      }
+    )
+  }
+  initalECharts2() {
+    this.setState(
+      { myChart2: echarts.init(document.getElementById('event_overview')) },
+      () => {
+        this.state.myChart2.setOption({
+          color: ['#9702fe', '#ff893b', '#37cbff'],
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+          },
+          legend: {
+            orient: 'vertical',
+            top: 30,
+            right: '20%',
+            data: ['已处理事件', '未处理事件', '标记事件'],
             textStyle: {
               fontSize: 12,
               color: '#ffffff'
@@ -533,11 +517,9 @@ class App extends Component {
                 show: false
               },
               data: [
-                { value: 335, name: '美妆' },
-                { value: 310, name: '百度' },
-                { value: 234, name: '教育' },
-                { value: 135, name: '理财' },
-                { value: 1548, name: '母婴' }
+                { value: 335, name: '已处理事件' },
+                { value: 50, name: '未处理事件' },
+                { value: 134, name: '标记事件' }
               ]
             }
           ]
@@ -888,10 +870,10 @@ class App extends Component {
                   className="xpanel-wrapper xpanel-wrapper-6"
                   style={{ position: 'relative' }}
                 >
-                  <div className="content_title">主播类型占比</div>
+                  <div className="content_title">设备概况</div>
                   <BorderBox1>
                     <div className="xpanel">
-                      <div className="fill-h" id="provinceMap"></div>
+                      <div className="fill-h" id="device_overview"></div>
                     </div>
                   </BorderBox1>
                 </div>
@@ -899,10 +881,10 @@ class App extends Component {
                   className="xpanel-wrapper xpanel-wrapper-6"
                   style={{ position: 'relative' }}
                 >
-                  <div className="content_title">重点品类排名</div>
+                  <div className="content_title">事件概况</div>
                   <BorderBox1>
                     <div className="xpanel">
-                      <div className="fill-h" id="cityMap"></div>
+                      <div className="fill-h" id="event_overview"></div>
                     </div>
                   </BorderBox1>
                 </div>
