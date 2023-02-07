@@ -170,3 +170,15 @@ td{
 ::-webkit-scrollbar {width:0;height:0;}
 ::-webkit-scrollbar-track {background-color:transparent;}
 ::-webkit-scrollbar-thumb {border-radius:5px;background-color:rgba(0, 0, 0, 0.3);}
+
+.el-tree {
+	cursor: default;
+	border: 1px solid #d1dbe5;
+	background-color: transparent !important;
+	color: #7187a0;
+}
+
+.el-card {
+	background-color: transparent !important;
+	color: #7187a0;
+}
